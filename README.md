@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Thorck FC — site oficial
 
-## Getting Started
+Site do Thorck FC, time de futebol de várzea de Indaiatuba (SP). Next.js 16 com export
+100% estático: o `npm run build` gera a pasta `out/`, que sobe em qualquer hospedagem
+(aaPanel, Cloudflare Pages, Netlify, Hostinger etc.) sem Node no servidor.
 
-First, run the development server:
+Páginas: Início, Elenco, Jogos, História, Contato (+ 404, sitemap, robots e manifest).
+
+## Rodar no computador
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Atualizar o conteúdo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todo o conteúdo fica em [`src/data/clube.ts`](src/data/clube.ts): dados do clube, campo,
+WhatsApp, redes, campanha, elenco, próximo jogo, linha do tempo e títulos. Os valores
+marcados com `// EXEMPLO` são provisórios.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Próximo jogo:** o site mostra um jogo só, o de `proximoJogo`. Sem jogo marcado, use
+  `null`: aparece "Próximo jogo a confirmar" com link para o Instagram. Se a data já passou,
+  o jogo some sozinho no próximo build.
+- **Jogos que já passaram** não aparecem um a um: entram só nos números de `temporada`
+  (jogos, vitórias, empates, derrotas, gols pró/contra, pênaltis defendidos). Atualize
+  também `atualizadoEm`.
+- **Artilharia:** gols e assistências de cada um em `elenco`. O pódio (3 artilheiros +
+  maior garçom) e os rankings se montam sozinhos. Camisas não são fixas.
+- **Foto de jogador (opcional):** foto quadrada (~600px, `.webp`) em `public/jogadores/` e
+  `foto: "/jogadores/rafinha.webp"` no jogador. Sem foto, o cartão mostra os gols em destaque.
 
-## Learn More
+Como o site é estático, **toda mudança só vale depois de um novo build e upload**.
 
-To learn more about Next.js, take a look at the following resources:
+## Escudo e imagens
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O escudo original fica em `assets/logo-original.png`. Se ele mudar, rode
+`npm run imagens` para gerar de novo os logos `.webp`, os ícones e a imagem de
+compartilhamento (`public/og.jpg`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Publicar
 
-## Deploy on Vercel
+```bash
+NEXT_PUBLIC_SITE_URL=https://thorckfc.com.br npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Suba o conteúdo de `out/` para a raiz do domínio. A `NEXT_PUBLIC_SITE_URL` define os
+links canônicos, o sitemap e a imagem de compartilhamento. Sem ela, o padrão é
+`https://thorckfc.com.br`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O `postbuild` (`scripts/achatar-segmentos.mjs`) roda sozinho e corrige um detalhe do
+export do Next 16 que, sem ele, faz o prefetch das páginas dar 404.

@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Site 100% estático: `npm run build` gera a pasta `out/`, que sobe em qualquer hospedagem.
+  output: "export",
+  trailingSlash: true,
+  // As imagens já saem otimizadas (webp) do scripts/gerar-imagens.mjs.
+  images: { unoptimized: true },
   turbopack: {
     rules: {
       "*.css": {
