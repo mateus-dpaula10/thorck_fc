@@ -94,7 +94,7 @@ export const elenco: Jogador[] = [
   { nome: "Esdra", gols: 2, assistencias: 1 },
   { nome: "Neto", gols: 2 },
   { nome: "Luan", gols: 2 },
-  { nome: "De Paula", posicao: "VOL", gols: 2, nascimento: "1999-09-04" },
+  { nome: "De Paula", posicao: "VOL", gols: 2, nascimento: "1999-09-04", foto: "/jogadores/de-paula.webp" },
   { nome: "Bellinghan", gols: 1, assistencias: 3, pais: "PY" },
   { nome: "MLK Magrão", gols: 1 },
   { nome: "Juka", gols: 1, assistencias: 1 },
