@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CartaoFut } from "@/components/CartaoFut";
+import { Compartilhar } from "@/components/Compartilhar";
 import { Ranking } from "@/components/Ranking";
 import { Container, JsonLd, TituloSecao, TopoPagina } from "@/components/ui";
-import { artilharia, clube, comissao, elenco, formatarAtualizacao, garcons, SITE_URL, temporada } from "@/data/clube";
+import { artilharia, clube, comissao, elenco, formatarAtualizacao, garcons, SITE_URL, slugDe, temporada } from "@/data/clube";
 
 export const metadata: Metadata = {
   title: "Elenco e artilharia",
@@ -43,7 +45,10 @@ export default function Elenco() {
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5">
             {porDesempenho.map((j) => (
               <li key={j.nome}>
-                <CartaoFut jogador={j} />
+                <Link href={`/elenco/${slugDe(j.nome)}/`} aria-label={`Ver o card de ${j.nome}`} className="block">
+                  <CartaoFut jogador={j} />
+                </Link>
+                <Compartilhar nome={j.nome} slug={slugDe(j.nome)} />
               </li>
             ))}
           </ul>

@@ -4,7 +4,7 @@ import { Bandeira } from "./Bandeira";
 import { Idade } from "./Idade";
 
 // Gerada uma vez no build; serve de base para a idade antes do navegador recalcular.
-const dataBuild = new Date().toISOString().slice(0, 10);
+export const dataBuild = new Date().toISOString().slice(0, 10);
 
 function Silhueta() {
   return (

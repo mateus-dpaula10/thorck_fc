@@ -84,7 +84,7 @@ export const elenco: Jogador[] = [
   { nome: "Natan", gols: 16, assistencias: 6 },
   { nome: "Maikinho", gols: 10, assistencias: 5 },
   { nome: "Igão", gols: 3, assistencias: 1 },
-  { nome: "Osiris", gols: 3 },
+  { nome: "Osiris", gols: 3, assistencias: 2 },
   { nome: "Fernando", gols: 3, assistencias: 2 },
   { nome: "Gaúcho", gols: 3, assistencias: 2 },
   { nome: "Daniel", gols: 3 },
@@ -103,7 +103,6 @@ export const elenco: Jogador[] = [
   { nome: "Pedro", gols: 1 },
   { nome: "Lukinha", gols: 1 },
   { nome: "Neguinho", assistencias: 3 },
-  { nome: "Osires", assistencias: 2 },
   { nome: "Magrão", assistencias: 2 },
   { nome: "Zorrinho", assistencias: 2 },
   { nome: "Junior", assistencias: 2 },
@@ -117,6 +116,16 @@ export const artilharia = () =>
   elenco.filter((j) => j.gols).sort((a, b) => b.gols! - a.gols! || (b.assistencias ?? 0) - (a.assistencias ?? 0));
 export const garcons = () =>
   elenco.filter((j) => j.assistencias).sort((a, b) => b.assistencias! - a.assistencias! || (b.gols ?? 0) - (a.gols ?? 0));
+
+// Endereço da página do jogador: "Juan Chupisco" → "juan-chupisco", "Igão" → "igao".
+export const slugDe = (nome: string) =>
+  nome
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+export const jogadorPorSlug = (slug: string) => elenco.find((j) => slugDe(j.nome) === slug);
 
 // Idade em um dia qualquer (o card recalcula no navegador, então não envelhece com o build).
 export function idadeEm(nascimento: string, hoje: Date) {

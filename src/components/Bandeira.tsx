@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 // Bandeiras em SVG (o emoji de bandeira não aparece no Windows).
-const bandeiras: Record<"BR" | "PY", { nome: string; desenho: ReactNode }> = {
+// Exportado para a imagem do card (src/lib/imagemCard.tsx) desenhar a mesma bandeira.
+export const bandeiras: Record<"BR" | "PY", { nome: string; desenho: ReactNode }> = {
   BR: {
     nome: "Brasil",
     desenho: (
